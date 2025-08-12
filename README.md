@@ -1,4 +1,4 @@
-# GoodTube
+# GoodTube (Allow shorts)
 Hello and welcome to GoodTube, a free adblocker for Youtube.<br>
 This uses an alternative method to remove ads, which means it will still work even when traditional adblockers aren't working.
 
