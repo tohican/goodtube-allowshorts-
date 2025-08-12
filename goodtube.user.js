@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name         GoodTube
+// @name         GoodTube (Bypass Shorts)
 // @namespace    http://tampermonkey.net/
-// @version      3.001
-// @description  Removes 100% of Youtube ads.
+// @version      3.002
+// @description  Removes 100% of Youtube ads (except Shorts)
 // @author       GoodTube
 // @updateURL    https://github.com/goodtube4u/goodtube/raw/refs/heads/main/goodtube.user.js
 // @downloadURL  https://github.com/goodtube4u/goodtube/raw/refs/heads/main/goodtube.user.js
@@ -20,6 +20,12 @@
 (function () {
 	'use strict';
 
+	// BYPASS FOR SHORTS - Exit if on Shorts page
+	if (window.location.pathname.includes('/shorts/')) {
+		console.log('[GoodTube] Bypassed - YouTube Shorts detected');
+		return;
+	}
+
 	// Bypass CSP restrictions, introduced by the latest Chrome updates
 	if (window.trustedTypes && window.trustedTypes.createPolicy && !window.trustedTypes.defaultPolicy) {
 		window.trustedTypes.createPolicy('default', {
@@ -31,6 +37,12 @@
 
 	// Define load function
 	function goodTube_load(loadAttempts) {
+		// CHECK AGAIN - Exit if navigated to Shorts
+		if (window.location.pathname.includes('/shorts/')) {
+			console.log('[GoodTube] Stopped - Navigated to Shorts');
+			return;
+		}
+
 		// If it's the first load attempt
 		if (loadAttempts === 0) {
 			// Debug message
@@ -61,10 +73,13 @@
 			// Success
 			.then(response => response.text())
 			.then(data => {
-				// Put GoodTube code into a <script> tag
-				let element = document.createElement('script');
-				element.innerHTML = data;
-				document.head.appendChild(element);
+				// FINAL CHECK before injecting
+				if (!window.location.pathname.includes('/shorts/')) {
+					// Put GoodTube code into a <script> tag
+					let element = document.createElement('script');
+					element.innerHTML = data;
+					document.head.appendChild(element);
+				}
 			})
 			// Error
 			.catch((error) => {
