@@ -13,7 +13,7 @@ https://www.tampermonkey.net/
 3. For all browsers except Firefox - click the extensions icon up the top of your browser (the little puzzle piece icon), click "manage extensions", click "Details" next to the "Tampermonkey" extension, enable the "Allow user scripts" option.
 
 3. Visit this link and press install on the page that opens up:<br>
-https://github.com/goodtube4u/goodtube/raw/refs/heads/main/goodtube.user.js
+https://github.com/tohican/goodtube-allowshorts-/raw/refs/heads/main/goodtube.user.js
 
 4. Restart your browser.
 
